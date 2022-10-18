@@ -1,15 +1,14 @@
 
 package asm.p;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StaffManager {
-    private Staff list[];
-    private short nStaff;
+    private ArrayList<Staff> list = new ArrayList<> ();
 
     public StaffManager() {
-        list = new Staff[100];
-        nStaff = 0;
+        
     }
     
     public void inputStaff() {
@@ -28,7 +27,7 @@ public class StaffManager {
                     System.out.println("New marketing staff");
                     Marketing staff = new Marketing();
                     staff.input();
-                    list[nStaff++] = staff;
+                    list.add(staff);
                     System.out.println("A new staff added!");
                     System.out.println("=====================");
                     break;
@@ -38,7 +37,7 @@ public class StaffManager {
                     System.out.println("New administrative staff");
                     Administration staff = new Administration();
                     staff.input();
-                    list[nStaff++] = staff;
+                    list.add(staff);
                     System.out.println("A new staff added!");
                     System.out.println("=====================");
                     break;
@@ -49,30 +48,28 @@ public class StaffManager {
     }
     
     public void outputStaff() {
-        if (nStaff <= 0) {
+        if (list.size() <= 0) {
             System.out.println("There is no staff.");
             return;
         }
         System.out.println("____________________________________");
         System.out.println("STAFF MEMBERS LIST");
-        Staff staff ;
-        for (int i = 0; i < nStaff; i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.println();
-            staff = list[i];
-            staff.output();
+            list.get(i).output();
         }
     }
     
     public void highSalary() {
-         if (nStaff <= 0) {
+         if (list.size() <= 0) {
             System.out.println("There is no staff.");
             return;
         }
-        Staff highStaff = list[0];
+        Staff highStaff = list.get(0);
         int maxSalary = highStaff.getFood();
-        for (int i = 1; i < nStaff; i++) {
-            if (list[i].getFood() > maxSalary) {
-                highStaff = list[i];
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i).getFood() > maxSalary) {
+                highStaff = list.get(i);
                 maxSalary = highStaff.getFood();
             }
         }
@@ -83,9 +80,9 @@ public class StaffManager {
     
     public int averageSalary() {
         float average = 0;
-        for (int i = 0; i < nStaff; i++) {
-            average += list[i].getFood();
+        for (int i = 0; i < list.size(); i++) {
+            average += list.get(i).getFood();
         }
-        return (int) (average / nStaff);
+        return (int) (average / list.size());
     }
 }
